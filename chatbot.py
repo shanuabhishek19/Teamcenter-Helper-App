@@ -1,6 +1,6 @@
 import os
 import re
-import fitz  # PyMuPDF for reading PDFs
+import fitz  # This should work if PyMuPDF is correctly installed
 import cv2
 import numpy as np
 from flask import Flask, render_template, request, send_from_directory, url_for
