@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: chatbot-app
+    env: python
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "./start.sh"
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000

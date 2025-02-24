@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teamcenter Helper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <h1>Teamcenter Helper</h1>
+    <p>How can I help you today?</p>
+
+    <!-- User Input Form -->
+    <form id="searchForm" action="/search" method="post">
+        <input type="text" name="query" placeholder="Enter text to search..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- File Upload Form -->
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <!-- Centered GIF Loader -->
+    <div class="gif-container">
+        <img id="searchingGif" src="{{ url_for('static', filename='searching.gif') }}" alt="Searching..." class="gif-animation">
+        <img id="foundGif" src="{{ url_for('static', filename='found.gif') }}" alt="Found!" class="gif-animation">
+        
+        <!-- Bot Response Below GIFs -->
+        {% if result %}
+            <p class="bot-response">🤖 <strong>Bot:</strong> {{ result | safe }}</p>
+            <script>document.getElementById('foundGif').style.display = 'block';</script>
+        {% endif %}
+
+        {% if text_results %}
+            <h3>Matching Results:</h3>
+            <ul>
+                {% for filename, text, link in text_results %}
+                    <li><strong>{{ filename }}</strong>: <a href="{{ link }}" target="_blank">{{ text | safe }}</a></li>
+                {% endfor %}
+            </ul>
+            <script>document.getElementById('foundGif').style.display = 'block';</script>
+        {% endif %}
+    </div>
+
+</body>
+</html>
